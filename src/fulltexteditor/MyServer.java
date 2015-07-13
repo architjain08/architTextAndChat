@@ -23,28 +23,36 @@ public class MyServer {
     Socket s;
     
     public final static int PORT=10;
-    public final static String UPDATE_USERS="updateuserslist:";
-    public final static String LOGOUT_MESSAGE="@@logoutme@@:";
+    public final static String UPDATE_USERS = "updateuserslist:";
+    public final static String LOGOUT_MESSAGE = "@@logoutme@@:";
+    public final static String TO_CHAT = "@@tochat@@";
+    Thread t;
     
     public MyServer()
     {
         try{
 	ss=new ServerSocket(PORT);
 	System.out.println("Server Started "+ss);
-	while(true)
-	{
-	s=ss.accept();
-	Runnable r=new MyThread(s,al,users);
-	Thread t=new Thread(r);
-	t.start();
-//	System.out.println("Total alive clients : "+ss.);
-	}
+            while(true)
+            {
+                s=ss.accept();
+                Runnable r=new MyThread(s,al,users);
+                t=new Thread(r);
+                t.start();
+            }
         }catch(Exception e){System.err.println("Server constructor"+e);}
     }
     
+    
+    void plzClose()
+    {
+        
+    }
+   
     public ServerSocket getSocket()
     {
         return ss;
+        
     }
     
 }
